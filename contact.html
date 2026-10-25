@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — coaching.cool</title>
+  <meta name="description" content="Get in touch, ask a question, or book your first coaching session.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="nav scrolled"><div class="nav-inner"><a href="/" class="nav-logo"><span class="nav-logo-icon">✦</span><span class="nav-logo-text">coaching.cool</span></a><div class="nav-links"><a href="/#tools" class="nav-link">Free Tools</a><a href="pricing.html" class="nav-link">Packages</a><a href="about.html" class="nav-link">About</a><a href="pricing.html" class="btn btn-coral btn-sm">Get Started</a></div><button class="nav-toggle" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/></svg></button></div></nav>
+<div class="nav-mobile"><button class="nav-mobile-close" aria-label="Close"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M6 18L18 6"/></svg></button><a href="/#tools">Free Tools</a><a href="pricing.html">Packages</a><a href="about.html">About</a><a href="pricing.html" class="btn btn-coral">Get Started</a></div>
+
+<section class="section" style="padding-top:140px">
+  <div class="container" style="max-width:800px">
+    <div class="text-center fade-up mb-60">
+      <span class="badge badge-coral mb-12">Get in Touch</span>
+      <h1 style="font-size:clamp(32px,5vw,48px);margin-bottom:16px">Let's talk.</h1>
+      <p class="text-muted" style="font-size:17px;max-width:480px;margin:0 auto">Have a question? Want to explore if coaching is right for you? Drop a message or book a session directly below.</p>
+    </div>
+
+    <div class="grid grid-2 fade-up" style="gap:40px">
+      <!-- Contact form -->
+      <div>
+        <h3 class="mb-20" style="font-size:20px">Send a Message</h3>
+        <form id="contact-form" style="display:flex;flex-direction:column;gap:16px">
+          <div>
+            <label style="font-size:13px;font-weight:600;display:block;margin-bottom:6px">Your Name</label>
+            <input type="text" class="input" style="width:100%;border-radius:12px" required>
+          </div>
+          <div>
+            <label style="font-size:13px;font-weight:600;display:block;margin-bottom:6px">Email</label>
+            <input type="email" class="input" style="width:100%;border-radius:12px" required>
+          </div>
+          <div>
+            <label style="font-size:13px;font-weight:600;display:block;margin-bottom:6px">What brings you here?</label>
+            <select class="input" style="width:100%;border-radius:12px;cursor:pointer">
+              <option value="">Select one...</option>
+              <option>I want to learn more about coaching</option>
+              <option>I'd like to book an orientation session</option>
+              <option>Team coaching inquiry</option>
+              <option>Partnership / collaboration</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:13px;font-weight:600;display:block;margin-bottom:6px">Message</label>
+            <textarea class="input" style="width:100%;border-radius:12px;min-height:120px;resize:vertical;font-family:var(--font-body)"></textarea>
+          </div>
+          <button type="submit" class="btn btn-coral" style="align-self:flex-start">Send Message →</button>
+        </form>
+      </div>
+
+      <!-- Calendly embed -->
+      <div>
+        <h3 class="mb-20" style="font-size:20px">Or Book Directly</h3>
+        <div class="calendly-inline-widget" data-url="https://calendly.com/robert-zevnik/session-45-min" style="min-width:320px;height:700px;"></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer"><div class="container"><div class="footer-bottom"><span>© 2026 coaching.cool — All rights reserved.</span><span>Made with ✦ in Slovenia</span></div></div></footer>
+<script src="js/main.js"></script>
+<script>
+document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  alert('Form submitted! (Connect to your preferred form handler: Formspree, Tally, or Kit.)');
+});
+</script>
+</body>
+</html>

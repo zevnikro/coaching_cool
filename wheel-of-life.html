@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wheel of Life — How Balanced Is Your Life? | coaching.cool</title>
+  <meta name="description" content="Rate 10 key life areas and see your balance visualized as an interactive wheel. Free self-assessment tool from coaching.cool.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .wol-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+    @media (max-width: 768px) { .wol-layout { grid-template-columns: 1fr; } .wol-chart-wrap { position: relative !important; top: auto !important; } }
+    .wol-chart-wrap { position: sticky; top: 80px; }
+    .wol-divider { height: 1px; background: rgba(0,0,0,0.04); margin: 0 16px; }
+  </style>
+</head>
+<body>
+
+<div style="background:rgba(250,248,245,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06);padding:14px 0;position:sticky;top:0;z-index:10">
+  <div style="max-width:900px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between">
+    <a href="/" class="nav-logo"><span class="nav-logo-icon" style="font-size:20px">✦</span><span class="nav-logo-text" style="font-size:18px">coaching.cool</span></a>
+    <span style="font-size:12px;color:var(--charcoal-light);font-weight:500;letter-spacing:0.5px">WHEEL OF LIFE</span>
+  </div>
+</div>
+
+<div style="max-width:860px;margin:0 auto;padding:48px 24px 80px">
+  <div id="wol-app"></div>
+</div>
+
+<script>
+const CATS = [
+  { id:"money", label:"Money &\nFinances", icon:"\uD83D\uDCB0" },
+  { id:"career", label:"Career &\nWork", icon:"\uD83D\uDCBC" },
+  { id:"health", label:"Health &\nFitness", icon:"\uD83D\uDCAA" },
+  { id:"fun", label:"Fun &\nRecreation", icon:"\uD83C\uDFAF" },
+  { id:"environment", label:"Environment", icon:"\uD83C\uDFE1" },
+  { id:"community", label:"Community", icon:"\uD83E\uDD1D" },
+  { id:"family", label:"Family &\nFriends", icon:"\uD83D\uDC68\u200D\uD83D\uDC69\u200D\uD83D\uDC67\u200D\uD83D\uDC66" },
+  { id:"love", label:"Partner &\nLove", icon:"\u2764\uFE0F" },
+  { id:"growth", label:"Personal\nGrowth", icon:"\uD83C\uDF31" },
+  { id:"spirituality", label:"Spirituality", icon:"\u2728" },
+];
+
+let scores = {}, wolPhase = 'rate';
+const app = document.getElementById('wol-app');
+
+function getPoint(i, val, center, radius, n) {
+  const angle = (Math.PI * 2 * i) / n - Math.PI / 2;
+  const r = (val / 10) * radius;
+  return { x: center + r * Math.cos(angle), y: center + r * Math.sin(angle) };
+}
+
+function buildSVG(size) {
+  const center = size / 2, radius = size * 0.38, n = CATS.length;
+  let svg = `<svg viewBox="0 0 ${size} ${size}" style="width:100%;max-width:${size}px;display:block;margin:0 auto">`;
+  // Grid
+  [2,4,6,8,10].forEach(lv => {
+    const pts = CATS.map((_,i) => getPoint(i,lv,center,radius,n));
+    svg += `<path d="${pts.map((p,i) => `${i?'L':'M'}${p.x},${p.y}`).join(' ')}Z" fill="none" stroke="var(--teal)" stroke-width="0.5" opacity="0.12"/>`;
+  });
+  // Axes
+  CATS.forEach((_,i) => { const p = getPoint(i,10,center,radius,n); svg += `<line x1="${center}" y1="${center}" x2="${p.x}" y2="${p.y}" stroke="var(--teal)" stroke-width="0.5" opacity="0.1"/>`; });
+  // Ideal
+  const idealPts = CATS.map((_,i) => getPoint(i,8,center,radius,n));
+  svg += `<path d="${idealPts.map((p,i) => `${i?'L':'M'}${p.x},${p.y}`).join(' ')}Z" fill="var(--teal)" fill-opacity="0.04" stroke="var(--teal)" stroke-width="1" stroke-dasharray="4 4" opacity="0.3"/>`;
+  // Data
+  const dataPts = CATS.map((c,i) => getPoint(i, scores[c.id]||0, center, radius, n));
+  svg += `<path d="${dataPts.map((p,i) => `${i?'L':'M'}${p.x},${p.y}`).join(' ')}Z" fill="var(--teal)" fill-opacity="0.15" stroke="var(--teal)" stroke-width="2.5" stroke-linejoin="round"/>`;
+  // Points
+  CATS.forEach((c,i) => {
+    const val = scores[c.id]||0, p = getPoint(i,val,center,radius,n);
+    svg += `<circle cx="${p.x}" cy="${p.y}" r="5" fill="white" stroke="var(--teal)" stroke-width="2.5"/>`;
+    if (val > 0) svg += `<text x="${p.x}" y="${p.y+1}" text-anchor="middle" dominant-baseline="middle" fill="var(--teal)" font-family="'Fraunces',serif" font-size="7" font-weight="700">${val}</text>`;
+  });
+  // Labels
+  CATS.forEach((c,i) => {
+    const p = getPoint(i,12.2,center,radius,n);
+    const lines = c.label.split('\n');
+    svg += `<text x="${p.x}" y="${p.y}" text-anchor="middle" dominant-baseline="middle" font-family="'DM Sans',sans-serif" font-size="9" font-weight="600" fill="var(--charcoal-light)">`;
+    lines.forEach((line,li) => { svg += `<tspan x="${p.x}" dy="${li===0?`-${(lines.length-1)*5}`:'11'}">${line}</tspan>`; });
+    svg += `</text>`;
+  });
+  svg += `</svg>`;
+  return svg;
+}
+
+function render() {
+  if (wolPhase === 'rate') renderRate();
+  else renderResults();
+}
+
+function renderRate() {
+  const filled = Object.values(scores).filter(v => v > 0).length;
+  const allFilled = filled === CATS.length;
+
+  app.innerHTML = `
+    <div class="text-center mb-40">
+      <div style="width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,var(--coral),var(--coral-light));display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:36px">\uD83C\uDFAF</div>
+      <h1 style="font-size:clamp(28px,5vw,40px);margin-bottom:12px">Your Wheel of Life</h1>
+      <p class="text-muted" style="font-size:16px;max-width:520px;margin:0 auto">Rate each area of your life from 1 (needs urgent attention) to 10 (thriving) and watch your life balance take shape.</p>
+    </div>
+    <div class="wol-layout">
+      <div class="card wol-chart-wrap" style="padding:24px">
+        ${buildSVG(380)}
+        <div class="text-center mt-24">
+          <span style="font-size:13px;color:${allFilled?'var(--teal)':'var(--charcoal-light)'};font-weight:500">${filled} of ${CATS.length} areas rated</span>
+          <div style="height:4px;border-radius:2px;background:rgba(26,92,94,0.08);margin-top:8px;overflow:hidden">
+            <div style="height:100%;border-radius:2px;background:var(--teal);width:${(filled/CATS.length)*100}%;transition:width 0.4s"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="padding:20px">
+          ${CATS.map((c,i) => `
+            <div class="wol-slider-row">
+              <span style="font-size:22px;width:32px;text-align:center">${c.icon}</span>
+              <div style="flex:1;min-width:0">
+                <div class="flex-between mb-8">
+                  <span style="font-size:13px;font-weight:600;white-space:nowrap">${c.label.replace('\n',' ')}</span>
+                  <span style="font-family:var(--font-display);font-size:18px;font-weight:700;color:${scores[c.id]?'var(--teal)':'rgba(0,0,0,0.15)'};min-width:24px;text-align:right">${scores[c.id]||'\u2013'}</span>
+                </div>
+                <div class="flex" style="gap:4px">
+                  ${[1,2,3,4,5,6,7,8,9,10].map(n => {
+                    const val = scores[c.id]||0;
+                    const active = val >= n;
+                    const current = val === n;
+                    let bg;
+                    if (active) {
+                      if (n <= 3) bg = current ? 'var(--coral)' : 'rgba(196,101,58,0.35)';
+                      else if (n <= 6) bg = current ? 'var(--amber)' : 'rgba(212,168,67,0.35)';
+                      else bg = current ? 'var(--teal)' : 'rgba(26,92,94,0.35)';
+                    } else bg = 'rgba(26,92,94,0.06)';
+                    return `<button class="wol-num-btn" onclick="setScore('${c.id}',${n})" style="background:${bg};color:${current?'white':active?'rgba(255,255,255,0.7)':'rgba(0,0,0,0.2)'}">${n}</button>`;
+                  }).join('')}
+                </div>
+              </div>
+            </div>
+            ${i < CATS.length-1 ? '<div class="wol-divider"></div>' : ''}
+          `).join('')}
+        </div>
+        <div class="mt-24 text-center">
+          <button class="btn ${allFilled?'btn-coral':'btn-disabled'} btn-full" onclick="${allFilled?'wolPhase=\'results\';render();window.scrollTo({top:0,behavior:\'smooth\'})':''}" style="${!allFilled?'background:rgba(0,0,0,0.06);color:rgba(0,0,0,0.25);cursor:default;box-shadow:none':'box-shadow:0 4px 16px rgba(196,101,58,0.3)'};font-size:16px;padding:16px 32px">
+            ${allFilled ? 'See My Results \u2192' : `Rate all ${CATS.length} areas to continue`}
+          </button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function setScore(id, val) { scores[id] = val; render(); }
+
+function renderResults() {
+  const vals = CATS.map(c => scores[c.id]||0);
+  const avg = (vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1);
+  const balance = (10-(Math.max(...vals)-Math.min(...vals))).toFixed(1);
+  const sorted = CATS.map(c => ({...c, score: scores[c.id]||0})).sort((a,b)=>a.score-b.score);
+  const weakest = sorted.slice(0,3), strongest = sorted.slice(-3).reverse();
+
+  app.innerHTML = `
+    <div class="text-center mb-32">
+      <h2 style="font-size:clamp(28px,5vw,38px);margin-bottom:8px">Your Wheel of Life</h2>
+      <p class="text-muted" style="font-size:15px">Here\u2019s a snapshot of your life balance right now.</p>
+    </div>
+    <div class="mb-32">${buildSVG(380)}</div>
+
+    <div class="grid grid-3 mb-24">
+      <div class="card text-center" style="padding:20px;box-shadow:none;border:1px solid rgba(0,0,0,0.05)">
+        <div style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--teal)">${avg}</div>
+        <div style="font-size:11px;color:var(--charcoal-light);margin-top:2px">out of 10</div>
+        <div style="font-size:12px;font-weight:600;margin-top:6px">Life Score</div>
+      </div>
+      <div class="card text-center" style="padding:20px;box-shadow:none;border:1px solid rgba(0,0,0,0.05)">
+        <div style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--amber)">${balance}</div>
+        <div style="font-size:11px;color:var(--charcoal-light);margin-top:2px">out of 10</div>
+        <div style="font-size:12px;font-weight:600;margin-top:6px">Balance</div>
+      </div>
+      <div class="card text-center" style="padding:20px;box-shadow:none;border:1px solid rgba(0,0,0,0.05)">
+        <div style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--coral)">${vals.filter(v=>v>0).length}</div>
+        <div style="font-size:11px;color:var(--charcoal-light);margin-top:2px">of ${CATS.length}</div>
+        <div style="font-size:12px;font-weight:600;margin-top:6px">Areas Rated</div>
+      </div>
+    </div>
+
+    <div class="grid grid-2 mb-24">
+      <div style="background:rgba(196,101,58,0.05);border-radius:16px;padding:20px;border:1px solid rgba(196,101,58,0.1)">
+        <h4 style="font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--coral);letter-spacing:1px;margin-bottom:12px">NEEDS ATTENTION</h4>
+        ${weakest.map(c => `<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="font-size:16px">${c.icon}</span><span style="font-size:13px;flex:1">${c.label.replace('\n',' ')}</span><span style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--coral)">${c.score}</span></div>`).join('')}
+      </div>
+      <div style="background:rgba(26,92,94,0.05);border-radius:16px;padding:20px;border:1px solid rgba(26,92,94,0.1)">
+        <h4 style="font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--teal);letter-spacing:1px;margin-bottom:12px">YOUR STRENGTHS</h4>
+        ${strongest.map(c => `<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="font-size:16px">${c.icon}</span><span style="font-size:13px;flex:1">${c.label.replace('\n',' ')}</span><span style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--teal)">${c.score}</span></div>`).join('')}
+      </div>
+    </div>
+
+    <!-- Teaser wall -->
+    <div class="card mb-24" style="position:relative;overflow:hidden;min-height:180px">
+      <div style="filter:blur(4px);pointer-events:none;user-select:none;opacity:0.5">
+        <h4 style="font-family:var(--font-display);font-size:18px;margin-bottom:12px">Detailed Area Insights</h4>
+        <p class="text-muted" style="font-size:14px;line-height:1.6">Your ${weakest[0].label.replace('\n',' ')} score of ${weakest[0].score} suggests you may be experiencing challenges in this area. Here are three actionable steps...</p>
+        <p class="text-muted" style="font-size:14px;line-height:1.6;margin-top:8px">Your ${weakest[1].label.replace('\n',' ')} score indicates room for growth in...</p>
+      </div>
+      <div id="unlock-overlay" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(250,248,245,0.85);backdrop-filter:blur(2px)">
+        <div style="width:48px;height:48px;border-radius:14px;background:rgba(26,92,94,0.08);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:12px">\uD83D\uDD12</div>
+        <h4 style="font-family:var(--font-display);font-size:18px;margin-bottom:4px">Unlock Your Full Report</h4>
+        <p class="text-muted" style="font-size:13px;margin-bottom:16px;text-align:center;padding:0 20px">Personalized insights, action steps, downloadable PDF, and coaching recommendations.</p>
+        <div id="wol-email-form">
+          <button class="btn btn-coral" onclick="showWolEmail()">Unlock Full Report \u2192</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,var(--teal),var(--teal-dark));border-radius:20px;padding:32px;text-align:center;margin-bottom:24px">
+      <h3 style="font-family:var(--font-display);font-size:22px;color:white;margin-bottom:8px">Ready to work on these areas?</h3>
+      <p style="font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:20px">A coaching session can help you turn these insights into an actual plan.</p>
+      <div class="flex flex-center flex-wrap gap-12">
+        <a href="pricing.html" class="btn btn-amber">Explore Coaching Packages \u2192</a>
+        <a href="coachability-index.html" class="btn" style="background:rgba(255,255,255,0.12);color:white;border:1px solid rgba(255,255,255,0.2)">Take the Coachability Quiz</a>
+      </div>
+    </div>
+    <div class="text-center">
+      <button onclick="wolPhase='rate';scores={};render();window.scrollTo({top:0,behavior:'smooth'})" style="background:none;border:none;cursor:pointer;font-family:var(--font-body);font-size:14px;color:var(--teal);font-weight:500;text-decoration:underline;text-underline-offset:3px">Start Over</button>
+    </div>`;
+}
+
+function showWolEmail() {
+  document.getElementById('wol-email-form').innerHTML = `
+    <div class="flex flex-center flex-wrap gap-12">
+      <input type="email" id="wol-email" class="input" placeholder="your@email.com" style="min-width:200px">
+      <button class="btn btn-coral" onclick="submitWolEmail()">Send</button>
+    </div>`;
+  document.getElementById('wol-email').focus();
+}
+function submitWolEmail() {
+  const email = document.getElementById('wol-email').value;
+  if (!email || !email.includes('@')) return;
+  // Kit API call here
+  document.getElementById('unlock-overlay').innerHTML = `<div class="flex flex-center" style="gap:8px"><span style="color:var(--teal);font-size:20px">\u2713</span><span style="font-size:14px;color:var(--teal);font-weight:600">Check your inbox!</span></div>`;
+}
+
+render();
+</script>
+<script src="js/main.js"></script>
+</body>
+</html>

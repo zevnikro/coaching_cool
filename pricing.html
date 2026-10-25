@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Packages & Pricing — coaching.cool</title>
+  <meta name="description" content="Start your coaching journey for just $29.99. Flexible monthly plans with 45-minute sessions. Cancel anytime.">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <style>
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; max-width: 860px; margin: 0 auto; align-items: start; }
+    @media (max-width: 768px) { .pricing-grid { grid-template-columns: 1fr; } }
+    .pricing-hero-card { border-radius: 24px; padding: 44px 40px; position: relative; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .pricing-hero-card:hover { transform: translateY(-4px); }
+    .pricing-hero-card.card-light { background: var(--white); border: 2px solid rgba(0,0,0,0.06); box-shadow: 0 4px 24px rgba(0,0,0,0.05); }
+    .pricing-hero-card.card-light:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+    .pricing-hero-card.card-dark { background: linear-gradient(135deg, var(--teal), var(--teal-dark)); color: var(--white); box-shadow: 0 8px 32px rgba(26,92,94,0.25); }
+    .pricing-hero-card.card-dark:hover { box-shadow: 0 16px 48px rgba(26,92,94,0.3); }
+    .hook-price { display: inline-flex; align-items: center; gap: 8px; background: rgba(196,101,58,0.1); padding: 8px 18px; border-radius: 50px; margin-bottom: 20px; }
+    .hook-price-dark { background: rgba(212,168,67,0.2); }
+    .price-big { font-family: var(--font-display); font-size: 48px; font-weight: 700; line-height: 1; }
+    .feature-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; font-size: 15px; line-height: 1.5; }
+    .feature-icon { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; margin-top: 2px; }
+    .feature-icon-teal { background: rgba(26,92,94,0.1); color: var(--teal); }
+    .feature-icon-white { background: rgba(255,255,255,0.15); color: var(--white); }
+    .vs-badge { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--coral); color: white; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 700; font-size: 14px; box-shadow: 0 4px 16px rgba(196,101,58,0.4); z-index: 2; }
+    @media (max-width: 768px) { .vs-badge { display: none; } }
+    .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; }
+    .btn-secondary { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px 24px; border-radius: 50px; font-family: var(--font-body); font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; text-align: center; }
+    .btn-secondary:hover { transform: translateY(-1px); }
+    .btn-secondary-light { background: rgba(26,92,94,0.06); color: var(--teal); border: 1.5px solid rgba(26,92,94,0.15); }
+    .btn-secondary-light:hover { background: rgba(26,92,94,0.1); }
+    .btn-secondary-dark { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); border: 1.5px solid rgba(255,255,255,0.15); }
+    .btn-secondary-dark:hover { background: rgba(255,255,255,0.14); }
+    .save-tag { display: inline-block; background: rgba(139,168,142,0.2); color: var(--sage); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 50px; }
+    .save-tag-dark { background: rgba(212,168,67,0.2); color: var(--amber); }
+    .team-card { max-width: 860px; margin: 0 auto; background: var(--white); border-radius: 20px; padding: 36px 40px; border: 1px solid rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .guarantee-strip { max-width: 860px; margin: 0 auto; text-align: center; padding: 24px; border-radius: 16px; background: rgba(139,168,142,0.1); border: 1px solid rgba(139,168,142,0.2); }
+  </style>
+</head>
+<body>
+
+<nav class="nav scrolled"><div class="nav-inner"><a href="/" class="nav-logo"><span class="nav-logo-icon">✦</span><span class="nav-logo-text">coaching.cool</span></a><div class="nav-links"><a href="/#tools" class="nav-link">Free Tools</a><a href="/#audiences" class="nav-link">Who It's For</a><a href="about.html" class="nav-link">About</a><a href="contact.html" class="nav-link">Contact</a></div><button class="nav-toggle" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/></svg></button></div></nav>
+<div class="nav-mobile"><button class="nav-mobile-close" aria-label="Close"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M6 18L18 6"/></svg></button><a href="/#tools">Free Tools</a><a href="/#audiences">Who It's For</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
+
+<!-- Hero -->
+<section class="section" style="padding-top:140px;padding-bottom:40px">
+  <div class="container">
+    <div class="text-center fade-up" style="max-width:640px;margin:0 auto">
+      <span class="badge badge-coral mb-12">Simple, honest pricing</span>
+      <h1 style="font-size:clamp(32px,5vw,48px);margin-bottom:16px">Your first session is<br><span class="text-coral">$29.99</span>. That's it.</h1>
+      <p class="text-muted" style="font-size:18px;max-width:500px;margin:0 auto;line-height:1.65">Try coaching with zero risk. If it clicks, pick a monthly plan that fits your pace. Cancel anytime — no contracts, no guilt.</p>
+    </div>
+  </div>
+</section>
+
+<!-- First Session Hook -->
+<section style="padding:0 0 60px">
+  <div class="container">
+    <div class="fade-up" style="max-width:540px;margin:0 auto">
+      <div style="background:linear-gradient(135deg,var(--coral),var(--coral-light));border-radius:20px;padding:32px 36px;text-align:center;color:white;position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;opacity:0.06;background-image:radial-gradient(circle,white 1px,transparent 1px);background-size:20px 20px"></div>
+        <div style="position:relative">
+          <span style="font-size:32px;display:block;margin-bottom:12px">👋</span>
+          <h3 style="font-family:var(--font-display);font-size:22px;color:white;margin-bottom:8px">Start here — one session, no strings</h3>
+          <p style="font-size:15px;color:rgba(255,255,255,0.85);margin-bottom:4px">45-minute coaching session via Zoom</p>
+          <div style="font-family:var(--font-display);font-size:44px;font-weight:700;margin:16px 0 8px">$29.99</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:24px">One-time payment · No subscription triggered · See if coaching is for you</p>
+
+          <!-- Two-step booking flow -->
+          <div style="display:flex;flex-direction:column;gap:12px;max-width:380px;margin:0 auto">
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.12);border-radius:14px;padding:14px 18px;text-align:left">
+              <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:14px;flex-shrink:0">1</div>
+              <div style="flex:1">
+                <div style="font-size:14px;font-weight:600">Pick your time</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.7)">Choose a slot that works for you</div>
+              </div>
+              <a href="" onclick="Calendly.initPopupWidget({url:'https://calendly.com/robert-zevnik/session-45-min'});return false;" style="background:white;color:var(--coral);padding:8px 18px;border-radius:50px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:transform 0.2s" onmouseenter="this.style.transform='translateY(-1px)'" onmouseleave="this.style.transform=''">Book →</a>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.12);border-radius:14px;padding:14px 18px;text-align:left">
+              <div style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:14px;flex-shrink:0">2</div>
+              <div style="flex:1">
+                <div style="font-size:14px;font-weight:600">Confirm with payment</div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.7)">Secure your spot — $29.99</div>
+              </div>
+              <a href="https://buy.stripe.com/14A9ATgWrbKQflI4zr0co04" style="background:white;color:var(--coral);padding:8px 18px;border-radius:50px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;transition:transform 0.2s" onmouseenter="this.style.transform='translateY(-1px)'" onmouseleave="this.style.transform=''">Pay →</a>
+            </div>
+          </div>
+          <p style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:16px">Your session is confirmed once payment is received. Secure checkout via Stripe.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Monthly Plans -->
+<section class="section section-cream-dark" style="padding-top:80px">
+  <div class="container">
+    <div class="text-center fade-up mb-60">
+      <span class="badge badge-teal mb-12">Monthly plans</span>
+      <h2 style="font-size:clamp(28px,4vw,40px);margin-bottom:12px">Ready to keep going?<br>Pick your rhythm.</h2>
+      <p class="text-muted" style="font-size:16px;max-width:480px;margin:0 auto">Choose monthly flexibility or save with a 10-month commitment. Cancel the monthly plan anytime.</p>
+    </div>
+
+    <div class="pricing-grid fade-up" style="position:relative">
+      <div class="vs-badge">or</div>
+
+      <!-- Easy Jive -->
+      <div class="pricing-hero-card card-light">
+        <h3 style="font-family:var(--font-display);font-size:26px;margin-bottom:4px">Easy Jive</h3>
+        <p class="text-muted" style="font-size:14px;margin-bottom:20px">Steady pace. Consistent growth.</p>
+        <div style="margin-bottom:24px">
+          <span class="price-big">$199</span>
+          <span style="font-size:14px;color:var(--charcoal-light)">/ month</span>
+          <div style="font-size:13px;color:var(--charcoal-light);margin-top:4px">2 sessions × 45 min · billed monthly</div>
+        </div>
+        <div style="height:1px;background:rgba(0,0,0,0.06);margin:0 -8px 24px"></div>
+        <div class="feature-row"><span class="feature-icon feature-icon-teal">✓</span> 2× 45-minute sessions per month</div>
+        <div class="feature-row"><span class="feature-icon feature-icon-teal">✓</span> Personalized coaching plan</div>
+        <div class="feature-row"><span class="feature-icon feature-icon-teal">✓</span> Between-session assignments</div>
+        <div class="feature-row"><span class="feature-icon feature-icon-teal">✓</span> Email support between sessions</div>
+        <div class="feature-row"><span class="feature-icon feature-icon-teal">✓</span> Full access to all assessment tools</div>
+        <div class="feature-row"><span class="feature-icon feature-icon-teal">✓</span> Cancel anytime — no lock-in</div>
+
+        <div class="btn-group">
+          <a href="https://buy.stripe.com/fZu9AT6hN4ioflI6Hz0co02" class="btn btn-coral btn-full" style="font-size:15px;padding:14px 28px">Start Monthly — $199/mo →</a>
+          <a href="https://buy.stripe.com/4gMaEXcGbg16ddA9TL0co03" class="btn-secondary btn-secondary-light">
+            Pay 10 months upfront — $1,499 <span class="save-tag">SAVE $491</span>
+          </a>
+        </div>
+        <p style="font-size:12px;color:var(--charcoal-light);text-align:center;margin-top:12px">Monthly: ~$100/session · 10-month: ~$75/session</p>
+      </div>
+
+      <!-- All In -->
+      <div class="pricing-hero-card card-dark">
+        <div style="position:absolute;top:16px;right:20px;background:var(--amber);color:var(--charcoal);font-size:11px;font-weight:700;padding:5px 14px;border-radius:50px;letter-spacing:0.3px">BEST VALUE</div>
+        <h3 style="font-family:var(--font-display);font-size:26px;color:white;margin-bottom:4px">All In</h3>
+        <p style="font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:20px">Go deep. Move fast. No holding back.</p>
+        <div style="margin-bottom:24px">
+          <span class="price-big" style="color:white">$349</span>
+          <span style="font-size:14px;color:rgba(255,255,255,0.6)">/ month</span>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px">4 sessions × 45 min · billed monthly</div>
+        </div>
+        <div style="height:1px;background:rgba(255,255,255,0.1);margin:0 -8px 24px"></div>
+        <div class="feature-row" style="color:rgba(255,255,255,0.9)"><span class="feature-icon feature-icon-white">✓</span> 4× 45-minute sessions per month</div>
+        <div class="feature-row" style="color:rgba(255,255,255,0.9)"><span class="feature-icon feature-icon-white">✓</span> Personalized deep-dive coaching plan</div>
+        <div class="feature-row" style="color:rgba(255,255,255,0.9)"><span class="feature-icon feature-icon-white">✓</span> Intensive between-session work</div>
+        <div class="feature-row" style="color:rgba(255,255,255,0.9)"><span class="feature-icon feature-icon-white">✓</span> Priority scheduling & VIP support</div>
+        <div class="feature-row" style="color:rgba(255,255,255,0.9)"><span class="feature-icon feature-icon-white">✓</span> Full access to all tools & future resources</div>
+        <div class="feature-row" style="color:rgba(255,255,255,0.9)"><span class="feature-icon feature-icon-white">✓</span> Cancel anytime — no lock-in</div>
+
+        <div class="btn-group">
+          <a href="https://buy.stripe.com/aFa7sL7lRaGM8Xk6Hz0co01" class="btn btn-amber btn-full" style="font-size:15px;padding:14px 28px">Start Monthly — $349/mo →</a>
+          <a href="https://buy.stripe.com/5kQ8wP5dJdSYehEgi90co00" class="btn-secondary btn-secondary-dark">
+            Pay 10 months upfront — $2,499 <span class="save-tag save-tag-dark">SAVE $991</span>
+          </a>
+        </div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.5);text-align:center;margin-top:12px">Monthly: ~$87/session · 10-month: ~$62/session</p>
+      </div>
+    </div>
+
+    <!-- Guarantee -->
+    <div class="fade-up" style="margin-top:40px">
+      <div class="guarantee-strip">
+        <span style="font-size:20px">🛡️</span>
+        <p style="font-size:14px;font-weight:600;color:var(--charcoal);margin-top:4px">No risk. No contracts. Cancel anytime.</p>
+        <p style="font-size:13px;color:var(--charcoal-light);margin-top:2px">Monthly plans renew automatically. Cancel before the next billing date and you won't be charged again. 10-month plans are a one-time payment — no recurring charges.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team -->
+<section class="section section-cream" style="padding-top:60px;padding-bottom:60px">
+  <div class="container">
+    <div class="team-card fade-up">
+      <div style="flex:1;min-width:240px">
+        <span style="font-size:28px;display:block;margin-bottom:8px">👥</span>
+        <h3 style="font-size:20px;margin-bottom:4px">Team & Group Coaching</h3>
+        <p class="text-muted" style="font-size:14px;line-height:1.6">For teams, families, or groups who want to grow together. Custom programs starting from $599. Get in touch for a tailored proposal.</p>
+      </div>
+      <a href="contact.html" class="btn btn-outline" style="white-space:nowrap">Get a Team Quote →</a>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="section section-cream-dark" style="padding-top:60px;padding-bottom:80px">
+  <div class="container" style="max-width:700px">
+    <h2 class="text-center fade-up mb-40" style="font-size:clamp(24px,3.5vw,32px)">How it works</h2>
+    <div class="fade-up" style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;gap:20px;align-items:flex-start">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--coral);color:white;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:16px;flex-shrink:0">1</div>
+        <div><h4 style="font-size:16px;margin-bottom:4px">Book your first session — $29.99</h4><p class="text-muted" style="font-size:14px">One 45-minute session to experience coaching firsthand. No subscription, no commitment.</p></div>
+      </div>
+      <div style="display:flex;gap:20px;align-items:flex-start">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--teal);color:white;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:16px;flex-shrink:0">2</div>
+        <div><h4 style="font-size:16px;margin-bottom:4px">If it clicks, pick your plan</h4><p class="text-muted" style="font-size:14px">Choose Easy Jive (2×/mo) or All In (4×/mo). Go monthly or save big with a 10-month commitment.</p></div>
+      </div>
+      <div style="display:flex;gap:20px;align-items:flex-start">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--amber);color:var(--charcoal);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:16px;flex-shrink:0">3</div>
+        <div><h4 style="font-size:16px;margin-bottom:4px">Grow at your own pace</h4><p class="text-muted" style="font-size:14px">Sessions happen via Zoom on your schedule. Cancel monthly plans anytime — no penalties, no guilt.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-cream" style="padding-top:60px;padding-bottom:80px">
+  <div class="container" style="max-width:700px">
+    <h2 class="text-center fade-up mb-40" style="font-size:clamp(24px,3.5vw,32px)">Common questions</h2>
+    <div class="fade-up" style="display:flex;flex-direction:column;gap:12px">
+      <details class="card card-flat" style="padding:20px 24px;border:1px solid rgba(0,0,0,0.06);cursor:pointer;box-shadow:none">
+        <summary style="font-weight:600;font-size:15px;list-style:none;display:flex;justify-content:space-between;align-items:center">What happens after my first $29.99 session? <span style="color:var(--coral)">+</span></summary>
+        <p class="text-muted" style="margin-top:12px;font-size:14px;line-height:1.6">Nothing automatic. After your first session, you decide if you want to continue. If you do, pick either Easy Jive or All In. No pressure, no auto-billing surprises.</p>
+      </details>
+      <details class="card card-flat" style="padding:20px 24px;border:1px solid rgba(0,0,0,0.06);cursor:pointer;box-shadow:none">
+        <summary style="font-weight:600;font-size:15px;list-style:none;display:flex;justify-content:space-between;align-items:center">What's the difference between monthly and 10-month? <span style="color:var(--coral)">+</span></summary>
+        <p class="text-muted" style="margin-top:12px;font-size:14px;line-height:1.6">Monthly plans bill every month and you can cancel anytime. The 10-month option is a one-time upfront payment that saves you up to $991 — it's the best per-session value if you're committed to the journey.</p>
+      </details>
+      <details class="card card-flat" style="padding:20px 24px;border:1px solid rgba(0,0,0,0.06);cursor:pointer;box-shadow:none">
+        <summary style="font-weight:600;font-size:15px;list-style:none;display:flex;justify-content:space-between;align-items:center">What currency will I be charged in? <span style="color:var(--coral)">+</span></summary>
+        <p class="text-muted" style="margin-top:12px;font-size:14px;line-height:1.6">Prices are listed in USD. Stripe automatically converts to your local currency at checkout, so you'll see the amount in EUR, GBP, or whatever your card uses.</p>
+      </details>
+      <details class="card card-flat" style="padding:20px 24px;border:1px solid rgba(0,0,0,0.06);cursor:pointer;box-shadow:none">
+        <summary style="font-weight:600;font-size:15px;list-style:none;display:flex;justify-content:space-between;align-items:center">How do I cancel my monthly subscription? <span style="color:var(--coral)">+</span></summary>
+        <p class="text-muted" style="margin-top:12px;font-size:14px;line-height:1.6">Just send me a message or email. I'll cancel it immediately — no questions asked, no retention tricks. You can also manage it through the Stripe customer portal.</p>
+      </details>
+      <details class="card card-flat" style="padding:20px 24px;border:1px solid rgba(0,0,0,0.06);cursor:pointer;box-shadow:none">
+        <summary style="font-weight:600;font-size:15px;list-style:none;display:flex;justify-content:space-between;align-items:center">Can I switch between Easy Jive and All In? <span style="color:var(--coral)">+</span></summary>
+        <p class="text-muted" style="margin-top:12px;font-size:14px;line-height:1.6">Absolutely. Upgrade or downgrade anytime. The change takes effect on your next billing cycle.</p>
+      </details>
+      <details class="card card-flat" style="padding:20px 24px;border:1px solid rgba(0,0,0,0.06);cursor:pointer;box-shadow:none">
+        <summary style="font-weight:600;font-size:15px;list-style:none;display:flex;justify-content:space-between;align-items:center">Is this therapy? <span style="color:var(--coral)">+</span></summary>
+        <p class="text-muted" style="margin-top:12px;font-size:14px;line-height:1.6">No. Coaching is forward-focused — we work on where you want to go, not diagnose where you've been. If therapy is more appropriate, I'll tell you honestly.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Not sure CTA -->
+<section class="section section-teal" style="text-align:center;position:relative;overflow:hidden;padding:80px 0">
+  <div style="position:absolute;inset:0;opacity:0.04;background-image:radial-gradient(circle,white 1px,transparent 1px);background-size:24px 24px"></div>
+  <div class="container-narrow" style="position:relative">
+    <div class="fade-up">
+      <span style="font-size:40px;display:block;margin-bottom:16px">✦</span>
+      <h2 style="color:white;font-size:clamp(24px,4vw,36px);margin-bottom:12px">Not sure yet? Start free.</h2>
+      <p style="font-size:16px;color:rgba(255,255,255,0.75);margin-bottom:28px">Take the Coachability Index or Wheel of Life — they're free, take 3 minutes, and help you understand where you are right now.</p>
+      <div class="flex flex-center flex-wrap gap-12">
+        <a href="coachability-index.html" class="btn btn-coral">Take the Free Quiz</a>
+        <a href="wheel-of-life.html" class="btn btn-white">Map Your Life Balance</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer"><div class="container"><div class="grid grid-4"><div><div class="flex" style="align-items:center;gap:8px;margin-bottom:16px"><span style="font-size:20px">✦</span><span style="font-family:var(--font-display);font-size:18px;font-weight:700;color:white">coaching.cool</span></div><p style="font-size:14px;line-height:1.6">Life coaching that meets you where you are.</p></div><div><h4>EXPLORE</h4><a href="coachability-index.html">Coachability Index</a><a href="wheel-of-life.html">Wheel of Life</a><a href="pricing.html">Packages</a><a href="contact.html">Contact</a></div><div><h4>COACHING FOR</h4><a href="coaching-dads.html">Dads</a><a href="coaching-moms.html">Moms</a><a href="coaching-students.html">Students</a><a href="coaching-youngsters.html">Young Adults</a></div><div><h4>LEGAL</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></div></div><div class="footer-bottom"><span>© 2026 coaching.cool</span><span>Made with ✦ in Slovenia</span></div></div></footer>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script src="js/main.js"></script>
+</body>
+</html>

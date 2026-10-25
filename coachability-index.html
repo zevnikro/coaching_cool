@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coachability Index — Am I Ready for Coaching? | coaching.cool</title>
+  <meta name="description" content="Take this free 3-minute quiz to discover your coaching readiness. 10 questions, personalized results, and actionable next steps.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Mini header -->
+<div style="background:rgba(250,248,245,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06);padding:14px 0;position:sticky;top:0;z-index:10">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between">
+    <a href="/" class="nav-logo"><span class="nav-logo-icon" style="font-size:20px">✦</span><span class="nav-logo-text" style="font-size:18px">coaching.cool</span></a>
+    <span style="font-size:12px;color:var(--charcoal-light);font-weight:500;letter-spacing:0.5px">COACHABILITY INDEX</span>
+  </div>
+</div>
+
+<div class="container-narrow" style="padding-top:48px;padding-bottom:80px">
+  <div id="app"></div>
+</div>
+
+<script>
+const QUESTIONS = [
+  { id:1, text:"I can identify 2\u20133 clear goals I want to achieve in the next 6 months.", theme:"Clarity" },
+  { id:2, text:"I have an open and curious mind \u2014 this feels like the right time for coaching.", theme:"Timing" },
+  { id:3, text:"I am willing to be held accountable by another person.", theme:"Accountability" },
+  { id:4, text:"I\u2019ll give new concepts and different approaches a fair chance, even if they feel uncomfortable at first.", theme:"Openness" },
+  { id:5, text:"I will speak truthfully and share when something isn\u2019t working for me.", theme:"Honesty" },
+  { id:6, text:"I am willing to eliminate or modify self-defeating behaviours that limit my success.", theme:"Change" },
+  { id:7, text:"I accept that there are no magic quick-fix solutions \u2014 real growth comes from my own discovery.", theme:"Patience" },
+  { id:8, text:"I am willing to devote time and emotional energy between sessions to put what I learn into practice.", theme:"Commitment" },
+  { id:9, text:"I have a growing sense of self-awareness and a drive to better understand myself.", theme:"Self-awareness" },
+  { id:10, text:"I recognize that coaching is a partnership, not a one-way fix.", theme:"Partnership" },
+];
+const SCALE = [
+  { value:1, label:"Strongly\nDisagree" },
+  { value:2, label:"Disagree" },
+  { value:3, label:"Open\nto This" },
+  { value:4, label:"Agree" },
+  { value:5, label:"Strongly\nAgree" },
+];
+
+let phase = 'intro', currentQ = 0, answers = {};
+const app = document.getElementById('app');
+
+function getResult(score) {
+  if (score<=27) return { cat:"Not Ready Yet", emoji:"\uD83C\uDF31", color:"var(--sage)", bg:"rgba(139,168,142,0.08)", msg:"It looks like now might not be the ideal time for coaching \u2014 and that\u2019s completely okay. Coaching works best when you\u2019re in a place of openness and readiness.", detail:"Bookmark this page and come back when it feels right. In the meantime, try our Wheel of Life tool to explore what matters most to you right now.", cta:"Try the Wheel of Life", href:"wheel-of-life.html", bar:"25%" };
+  if (score<=35) return { cat:"Getting There", emoji:"\uD83C\uDF3F", color:"var(--amber)", bg:"rgba(212,168,67,0.08)", msg:"You\u2019re on the edge of being ready! You have real openness to growth, but there may be a few areas where some inner work would help first.", detail:"A coaching orientation session could help you figure out if this is the right step. No commitment, no pressure \u2014 just a conversation.", cta:"Book an Orientation (\u20AC49)", href:"pricing.html", bar:"50%" };
+  if (score<=42) return { cat:"Coachable", emoji:"\uD83D\uDD25", color:"var(--coral)", bg:"rgba(196,101,58,0.08)", msg:"Great news \u2014 you\u2019re coachable! You have the mindset and willingness that makes coaching genuinely effective.", detail:"You\u2019re open, motivated, and ready to do the work. The Momentum package (5 sessions) is designed for exactly where you are.", cta:"Build Your Momentum", href:"pricing.html", bar:"75%" };
+  return { cat:"Highly Coachable", emoji:"\u2728", color:"var(--teal)", bg:"rgba(26,92,94,0.08)", msg:"You\u2019re highly coachable \u2014 you bring exactly the kind of openness, self-awareness, and commitment that creates breakthrough results.", detail:"You\u2019re ready to go deep. The All In package gives you unlimited access for a full year of transformative work.", cta:"Go All In", href:"pricing.html", bar:"100%" };
+}
+
+function render() {
+  if (phase === 'intro') renderIntro();
+  else if (phase === 'quiz') renderQuestion();
+  else renderResults();
+}
+
+function renderIntro() {
+  app.innerHTML = `
+    <div class="text-center">
+      <div style="width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,var(--teal),var(--teal-light));display:flex;align-items:center;justify-content:center;margin:0 auto 28px;font-size:36px">\uD83D\uDCCB</div>
+      <h1 style="font-size:clamp(28px,5vw,40px);margin-bottom:16px">The Coachability Index</h1>
+      <p class="text-muted mb-12" style="font-size:17px;max-width:480px;margin-left:auto;margin-right:auto">How ready are you for coaching? This quick assessment measures your openness, motivation, and readiness for real personal growth.</p>
+      <p class="text-muted mb-32" style="font-size:14px">10 questions \u00B7 ~3 minutes \u00B7 No wrong answers</p>
+      <div class="card card-flat mb-40" style="text-align:left;padding:24px">
+        <p style="font-size:12px;font-weight:600;color:var(--teal);letter-spacing:1.5px;margin-bottom:16px">THE COACHABILITY CONTINUUM</p>
+        <div style="position:relative;height:48px;margin-bottom:12px">
+          <div style="position:absolute;top:18px;left:0;right:0;height:12px;border-radius:6px;background:linear-gradient(90deg,rgba(139,168,142,0.4),rgba(212,168,67,0.6),rgba(196,101,58,0.7),var(--teal))"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between">
+          <span style="font-size:11px;color:var(--charcoal-light);font-weight:500">Bounded</span>
+          <span style="font-size:11px;color:var(--charcoal-light);font-weight:500">Getting There</span>
+          <span style="font-size:11px;color:var(--charcoal-light);font-weight:500">Coachable</span>
+          <span style="font-size:11px;color:var(--charcoal-light);font-weight:500">Unbounded</span>
+        </div>
+      </div>
+      <button class="btn btn-coral" onclick="phase='quiz';render();window.scrollTo({top:0,behavior:'smooth'})" style="font-size:16px;padding:16px 40px;box-shadow:0 4px 16px rgba(196,101,58,0.3)">Begin the Assessment \u2192</button>
+    </div>`;
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+  const progress = (currentQ / QUESTIONS.length) * 100;
+  const ans = answers[currentQ];
+  app.innerHTML = `
+    <div>
+      <div class="flex-between mb-8">
+        <span class="text-muted" style="font-size:13px;font-weight:500">Question ${currentQ+1} of ${QUESTIONS.length}</span>
+        <span class="text-teal" style="font-size:13px;font-weight:600">${Math.round(progress)}%</span>
+      </div>
+      <div class="quiz-progress-bar mb-40"><div class="quiz-progress-fill" style="width:${progress}%"></div></div>
+      <div id="q-card">
+        <span class="badge badge-teal mb-20">${q.theme.toUpperCase()}</span>
+        <h2 style="font-size:clamp(22px,4vw,30px);line-height:1.35;margin-bottom:36px;max-width:540px">${q.text}</h2>
+        <div class="flex flex-wrap flex-center gap-12 mb-40" id="scale-btns">
+          ${SCALE.map(s => `
+            <button class="likert-btn ${ans===s.value?'selected':''}" onclick="selectAnswer(${s.value})">
+              <span style="font-family:var(--font-display);font-size:22px;font-weight:700;color:${ans===s.value?'var(--teal)':'var(--charcoal-light)'}">${s.value}</span>
+              <span style="font-size:10px;font-weight:500;color:${ans===s.value?'var(--teal)':'var(--charcoal-light)'};text-align:center;line-height:1.3;white-space:pre-line">${s.label}</span>
+            </button>
+          `).join('')}
+        </div>
+        <div class="flex-between">
+          <button onclick="goBack()" style="background:none;border:none;cursor:${currentQ===0?'default':'pointer'};font-family:var(--font-body);font-size:14px;font-weight:500;color:${currentQ===0?'rgba(0,0,0,0.2)':'var(--charcoal-light)'}" ${currentQ===0?'disabled':''}>← Back</button>
+          <button class="btn ${ans?'btn-coral':'btn-disabled'}" onclick="goNext()" ${!ans?'disabled':''} style="${!ans?'background:rgba(0,0,0,0.08);color:rgba(0,0,0,0.3);cursor:default':''}">${currentQ===QUESTIONS.length-1?'See My Results':'Next →'}</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function selectAnswer(val) {
+  answers[currentQ] = val;
+  render();
+}
+function goBack() { if (currentQ > 0) { currentQ--; render(); } }
+function goNext() {
+  if (!answers[currentQ]) return;
+  if (currentQ < QUESTIONS.length - 1) { currentQ++; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+  else { phase = 'results'; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+}
+
+function renderResults() {
+  const score = Object.values(answers).reduce((a,b) => a+b, 0);
+  const r = getResult(score);
+  const breakdown = QUESTIONS.map((q,i) => ({ theme: q.theme, score: answers[i]||0 }));
+
+  app.innerHTML = `
+    <div class="text-center mb-40">
+      <span style="font-size:56px;display:block;margin-bottom:12px">${r.emoji}</span>
+      <span class="badge mb-16" style="background:${r.bg};color:${r.color}">${r.cat}</span>
+      <h2 style="margin-bottom:8px">Your score: ${score}/50</h2>
+      <div style="max-width:400px;margin:0 auto;height:12px;border-radius:6px;background:linear-gradient(90deg,rgba(139,168,142,0.25),rgba(212,168,67,0.3),rgba(196,101,58,0.4),rgba(26,92,94,0.5));position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;left:0;bottom:0;width:${r.bar};background:linear-gradient(90deg,${r.color}cc,${r.color});border-radius:6px;transition:width 1s cubic-bezier(.22,1,.36,1)"></div>
+      </div>
+    </div>
+
+    <div class="card mb-24" style="border:2px solid ${r.bg}">
+      <p style="font-size:17px;line-height:1.65;margin-bottom:12px">${r.msg}</p>
+      <p class="text-muted" style="font-size:15px">${r.detail}</p>
+    </div>
+
+    <div class="card mb-24">
+      <h3 style="font-size:18px;margin-bottom:20px">Your Breakdown</h3>
+      ${breakdown.map(b => `
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+          <span style="font-size:12px;color:var(--charcoal-light);width:100px;text-align:right;flex-shrink:0">${b.theme}</span>
+          <div style="flex:1;height:8px;border-radius:4px;background:rgba(26,92,94,0.08)">
+            <div style="height:100%;border-radius:4px;width:${(b.score/5)*100}%;background:${b.score>=4?'var(--teal)':b.score>=3?'var(--amber)':'var(--coral)'};transition:width 0.8s"></div>
+          </div>
+          <span style="font-family:var(--font-display);font-size:16px;font-weight:700;width:24px">${b.score}</span>
+        </div>
+      `).join('')}
+    </div>
+
+    <div id="email-gate" style="background:linear-gradient(135deg,var(--teal),var(--teal-dark));border-radius:20px;padding:32px;margin-bottom:24px;text-align:center">
+      <h3 style="font-family:var(--font-display);font-size:20px;color:white;margin-bottom:8px">Want your full personalized report?</h3>
+      <p style="font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:20px;line-height:1.5">Get detailed insights on each area, tailored coaching tips, and a downloadable PDF of your results.</p>
+      <div id="email-form">
+        <button class="btn btn-amber" onclick="showEmailInput()">Get My Full Report \u2192</button>
+      </div>
+    </div>
+
+    <div class="flex flex-center flex-wrap gap-12">
+      <a href="${r.href}" class="btn btn-coral">${r.cta} \u2192</a>
+      <button class="btn btn-outline" onclick="phase='intro';currentQ=0;answers={};render();window.scrollTo({top:0,behavior:'smooth'})">Retake Quiz</button>
+    </div>`;
+}
+
+function showEmailInput() {
+  document.getElementById('email-form').innerHTML = `
+    <div class="flex flex-center flex-wrap gap-12">
+      <input type="email" id="quiz-email" class="input input-dark" placeholder="your@email.com" style="min-width:200px;flex:1;max-width:280px">
+      <button class="btn btn-amber" onclick="submitEmail()">Send It</button>
+    </div>`;
+  document.getElementById('quiz-email').focus();
+}
+
+function submitEmail() {
+  const email = document.getElementById('quiz-email').value;
+  if (!email || !email.includes('@')) return;
+  // Kit/ConvertKit API call would go here
+  // fetch('https://api.convertkit.com/v3/forms/FORM_ID/subscribe', { ... })
+  document.getElementById('email-gate').innerHTML = `
+    <div style="padding:8px">
+      <span style="font-size:28px">\u2713</span>
+      <p style="font-family:var(--font-body);font-size:15px;color:var(--teal);font-weight:600;margin-top:8px">Check your inbox! Your full report is on its way.</p>
+    </div>`;
+  document.getElementById('email-gate').style.background = 'rgba(26,92,94,0.08)';
+  document.getElementById('email-gate').style.textAlign = 'center';
+}
+
+render();
+</script>
+<script src="js/main.js"></script>
+</body>
+</html>
